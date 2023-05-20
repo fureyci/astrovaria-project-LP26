@@ -39,7 +39,7 @@ D_LAMBDA = 60 # Wavelength range of line  to plot.
 VSINI = 370 # [km/s]
 RESOLUTION = 6000 # Resolution of broadened model line.
 
-NO_LINES = 14
+NO_LINES = 2
 
 V_RAD = 283.0 # Radial velocity of Leo P, in [km/s]
 
@@ -167,7 +167,7 @@ def load_models(path, append_to_name="", up_to_index=None, indices_of_number=[1,
     """
 
     # Get model folders in FASTWIND directory.
-    model_folders = glob(f"{path}*")
+    model_folders = glob(f"{os.getcwd()}{path}*")
 
     # Store the model names, and numerical value, for sorting.
     # Since glob returns in arbitrary order.
@@ -637,7 +637,6 @@ def chi_sq(lines_in_data, data_errors, models, model_names, model_line_names, li
             line_ax.set_xlim(data_wl[0], data_wl[-1])
 
             if i == len(lines_to_use) - 1: # If at the bottom, set xlabel.
-                line_ax.set_ylabel("Normalised Flux", size=15, position=(0.5, 0.5), transform=chisq_fig.transFigure)
                 line_ax.set_xlabel(r"Wavelength (Å)", size=15)
             if i == 0: # If at the top, put in legend.
                 line_ax.legend(loc=1,bbox_to_anchor=(1.35, 1), bbox_transform=line_ax.transAxes,
@@ -1260,9 +1259,8 @@ if __name__ == "__main__":
     # chi_sq(data_lines1, uv_line_errs1, model_lines_tr03_3p92, model_names_tr03_3p92, line_names_tr03_3p92, ["CIII1176"],
     #        fit="CIs", using_renorm=True, data_names=data_names1, idx_left=2, idx_right=2, xdata=np.array(tr03_3p92_grid_temps), xlabel=r"$T_{\rm eff}$ (kK)", savename="example_gridsearch.jpg")
 
-    # chi_sq(data_lines1, uv_line_errs1, model_lines_tr03_4p17, model_names_tr03_4p17, line_names_tr03_4p17, ["CIII1176"],
-    #        fit="CIs", using_renorm=True, data_names=data_names1, idx_left=2, idx_right=2, xdata=np.array(tr03_4p17_grid_temps), xlabel=r"$T_{\rm eff}$ (kK)")#, savename="example_gridsearch.jpg")
-        #    using_renorm=True, data_names=data_names1)
+    chi_sq(data_lines1, uv_line_errs1, model_lines_tr03_4p17, model_names_tr03_4p17, line_names_tr03_4p17, ["CIII1176"],
+           fit="CIs", using_renorm=True, data_names=data_names1, idx_left=2, idx_right=2, xdata=np.array(tr03_4p17_grid_temps), xlabel=r"$T_{\rm eff}$ (kK)")
 
     # chi_sq(data_lines1, uv_line_errs1, model_lines_md03_4p42, model_names_md03_4p42, line_names_md03_4p42, ["CIII1176", "CIV1550"],
     #     fit=None, using_renorm=True, data_names=data_names1)
