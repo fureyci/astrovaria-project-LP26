@@ -1,0 +1,11 @@
+time
+mass
+Lbol
+Rstar
+Teff
+vsrf
+sMF_H1
+sMF_H2
+sMF_C11
+sMF_C12
+sMF_C13
